@@ -85,16 +85,23 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String token = jwtUtils.generateToken(email, role, userId, fullName, userStatus, internStatus, internConfirmStatus);
 
         // Set cookie
+        boolean isProd = System.getenv("FRONTEND_URL") != null;
         Cookie cookie = new Cookie("token", token);
         cookie.setPath("/");
-        cookie.setHttpOnly(false);
-        cookie.setSecure(false);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(isProd);
         cookie.setMaxAge(24 * 60 * 60);
-        cookie.setAttribute("SameSite", "Lax");
+        cookie.setAttribute("SameSite", isProd ? "None" : "Lax");
         response.addCookie(cookie);
 
         // Redirect to frontend success
-        String redirectUrl = "http://localhost:5173/oauth-success?token=" + token;
+        String frontendUrl = System.getenv("FRONTEND_URL");
+        if (frontendUrl == null) {
+            frontendUrl = "http://localhost:5173";
+        }
+
+        String redirectUrl = frontendUrl + "/oauth-success?token=" + token;
+        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 

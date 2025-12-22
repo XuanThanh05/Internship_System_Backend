@@ -48,9 +48,13 @@ public class SecurityConfig {
     // ✅ CORS configuration to allow frontend (localhost:3000)
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        String frontendUrl = System.getenv("FRONTEND_URL");
+        if (frontendUrl == null) {
+            frontendUrl = "http://localhost:5173";
+        }
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedOrigins(Arrays.asList(frontendUrl));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
         configuration.setExposedHeaders(Arrays.asList("Set-Cookie"));

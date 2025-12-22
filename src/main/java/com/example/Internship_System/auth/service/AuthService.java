@@ -233,7 +233,12 @@ public class AuthService {
         verificationTokenRepository.save(verificationToken);
 
         // Create link to frontend reset page
-        String resetUrl = "http://localhost:5173/reset-password?token=" + token;
+        String frontendUrl = System.getenv("FRONTEND_URL");
+        if (frontendUrl == null) {
+            frontendUrl = "http://localhost:5173";
+        }
+
+        String resetUrl = frontendUrl + "/reset-password?token=" + token;
 
         String subject = "🔐 Yêu cầu lấy lại mật khẩu đăng nhập System ";
         String body = "Xin chào " + user.getFullName() + ",\n\n"
@@ -320,7 +325,12 @@ public class AuthService {
         verificationTokenRepository.save(verificationToken);
 
         // Send email
-        String resetUrl = "http://localhost:5173/reset-password?token=" + token;
+        String frontendUrl = System.getenv("FRONTEND_URL");
+        if (frontendUrl == null) {
+            frontendUrl = "http://localhost:5173";
+        }
+
+        String resetUrl = frontendUrl + "/reset-password?token=" + token;
         String subject = "🔐 Yêu cầu lấy lại mật khẩu đăng nhập System";
         String body = "Xin chào " + user.getFullName() + ",\n\n"
                 + "Hãy bấm vào link bên dưới để thiết lập mật khẩu mới (Liên kết chỉ có hiệu lực trong 10 phút):\n\n"

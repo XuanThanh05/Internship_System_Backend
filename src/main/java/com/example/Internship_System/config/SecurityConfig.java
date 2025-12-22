@@ -52,7 +52,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5173",
-                "https://internshipsystemfrontend-production-db48.up.railway.app"
+                "https://internshipsystembackend-production.up.railway.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));

@@ -32,12 +32,14 @@ spring:
           google:
             client-id: 468977449527-r7gcoqoa7su799nfjeb94pu3e8l9s303.apps.googleusercontent.com
             client-secret: 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
+            redirect-uri: "https://internshipsystembackend-production.up.railway.app/login/oauth2/code/google"
             scope:
               - email
               - profile
           github:
             client-id: Ov23li8Hs2ZyQSv9jWRo
             client-secret: 23ef033d46537916e63d43995eff03302dddf6d8
+            redirect-uri: "https://internshipsystembackend-production.up.railway.app/login/oauth2/code/github"
             scope:
               - user:email
         provider:

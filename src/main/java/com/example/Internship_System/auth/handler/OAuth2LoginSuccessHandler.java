@@ -102,7 +102,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         String redirectUrl = frontendUrl + "/oauth-success?token=" + token;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 
 

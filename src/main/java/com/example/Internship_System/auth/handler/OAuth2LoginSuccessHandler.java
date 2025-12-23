@@ -43,6 +43,9 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         var attributes = oauthToken.getPrincipal().getAttributes();
 
         String email = (String) attributes.get("email");
+        if (email == null) {
+            throw new IllegalStateException("OAuth2 login failed: email not found");
+        }
         String fullNameAttr = (String) attributes.get("name");
 
         // Lookup user in DB FIRST
@@ -101,7 +104,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         }
 
         String redirectUrl = frontendUrl + "/oauth-success?token=" + token;
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 
